@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>gfw-breaker</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap-theme.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/fakeLoader.css">
+    <link rel="stylesheet" type="text/css" href="../css/index.css">
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <!-- <script type="text/javascript" src="../js/fakeLoader.min.js"></script> -->
+    <script type="text/javascript" src="../js/vue.min.js"></script>
+</head>
+
+<body>
+    <div class="content">
+        <form class="form-horizontal" id="configForm">
+            <div class="form-group">
+                <label class="control-label">服务器地址:</label>
+                <input type="text" class="form-control" placeholder="服务器地址" v-model="serverAddress">
+            </div>
+            <div class="form-group">
+                <label class="control-label">服务器端口:</label>
+                <input type="number" class="form-control" placeholder="服务器端口" v-model="serverPort">
+            </div>
+            <div class="form-group">
+                <label class="control-label">本地端口:</label>
+                <input type="number" class="form-control" placeholder="本地端口" v-model="localPort">
+            </div>
+            <div class="form-group">
+                <label class="control-label">加密方法:</label>
+                <select class="form-control" v-model="method">
+                    <option v-for="m in methods" v-bind:value="m">{{ m }}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="control-label">密码:</label>
+                <input type="password" class="form-control" placeholder="密码" v-model="password">
+            </div>
+            <div class="form-group">
+                <button type="button" class="btn form-control" v-bind:class="[ running ? 'btn-danger': 'btn-primary' ]" v-on:click="runApp()">{{ running ? '结束' : '开始'}}</button>
+            </div>
+        </form>
+    </div>
+    <!-- <div id="fakeLoader"></div> -->
+    <script>
+    var {
+        ipcRenderer
+    } = require('electron');
+
+
+    var vm = new Vue({
+        el: '#configForm',
+        data: {
+            running: false,
+            serverAddress: 'ss-over-ws.herokuapp.com',
+            serverPort: 80,
+            localPort: 1080,
+            method: 'aes-256-cfb',
+            password: 'ourvpn01010101',
+            methods: [
+                'rc4',
+                'rc4-md5',
+                'table',
+                'bf-cfb',
+                'des-cfb',
+                'rc2-cfb',
+                'idea-cfb',
+                'seed-cfb',
+                'cast5-cfb',
+                'aes-128-cfb',
+                'aes-192-cfb',
+                'aes-256-cfb',
+                'camellia-256-cfb',
+                'camellia-192-cfb',
+                'camellia-128-cfb'
+            ]
+        },
+        methods: {
+            runApp: function() {
+                // this.running = !this.running
+                if (!this.running) {
+                    ipcRenderer.send('app-start', {
+                        serverAddress: this.serverAddress,
+                        serverPort: this.serverPort,
+                        localPort: this.localPort,
+                        method: this.method,
+                        password: this.password
+                    })
+                } else {
+                    ipcRenderer.send('app-shutdown')
+                }
+            }
+        }
+
+    });
+
+    ipcRenderer.on('sslocal-status-change', function(event, status) {
+        vm.running = status;
+    })
+    </script>
+</body>
+
+</html>

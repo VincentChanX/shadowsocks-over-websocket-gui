@@ -1,0 +1,16 @@
+html,
+body {
+    padding: 0px;
+    margin: 0px;
+    height: 100%;
+}
+
+.content {
+    width: 260px;
+    height: 100%;
+    margin: 0px auto 0px auto;
+}
+
+#configForm {
+    padding-top: 20px;
+}

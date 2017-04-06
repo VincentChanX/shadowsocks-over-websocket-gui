@@ -1,0 +1,31 @@
+{
+  "name": "shadowsocks-over-websocket-gui",
+  "version": "0.1.0",
+  "description": "A fast tunnel proxy that helps you bypass firewalls",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VincentChanX/shadowsocks-over-websocket-gui.git"
+  },
+  "keywords": [
+    "shadowsocks"
+  ],
+  "author": "vincentchan <hci.vincentchan@gmail.com> (https://github.com/VincentChanX)",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/VincentChanX/shadowsocks-over-websocket-gui/issues"
+  },
+  "homepage": "https://github.com/VincentChanX/shadowsocks-over-websocket-gui#readme",
+  "dependencies": {
+    "log4js": "^1.1.1",
+    "shadowsocks-over-websocket": "^0.1.0"
+  },
+  "devDependencies": {
+    "bower": "^1.8.0",
+    "gulp": "^3.9.1"
+  }
+}
