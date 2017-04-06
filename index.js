@@ -16,7 +16,6 @@ var running = false;
 var relay = null;
 
 function createWindow() {
-  console.log('app ready')
 
   win = new BrowserWindow({
     width: DEBUG ? 520 : 320,
@@ -60,7 +59,7 @@ app.on('activate', () => {
 ipcMain.on('app-start', function(event, config) {
   relay = new TCPRelay(config, true, 'info');
   relay.bootstrap().then(function() {
-    logger.info('tcprelay bootstrap', config);
+    logger.info('tcprelay is running', config);
     running = true;
     event.sender.send('sslocal-status-change', true);
   }).catch(function(error) {
@@ -72,7 +71,7 @@ ipcMain.on('app-start', function(event, config) {
 
 ipcMain.on('app-shutdown', function(event) {
   relay && relay.stop().then(function() {
-    logger.info('tcprelay stop');
+    logger.info('tcprelay is stopped');
     running = false;
     event.sender.send('sslocal-status-change', false);
     relay = null;
