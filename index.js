@@ -22,11 +22,10 @@ function createWindow() {
     height: 500,
     resizeable: false,
     maximizable: false,
+    icon: './icon_128.ico',
     fullscreen: false,
     fullscreenable: false,
     titleBarStyle: 'hidden',
-    // frame: false,
-    transparent: true,
     webPreferences: {
       devTools: DEBUG
     }

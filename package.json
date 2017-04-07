@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/VincentChanX/shadowsocks-over-websocket-gui#readme",
   "dependencies": {
+    "electron-packager": "^8.6.0",
     "log4js": "^1.1.1",
     "shadowsocks-over-websocket": "^0.1.0"
   },
