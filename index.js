@@ -57,7 +57,7 @@ app.on('activate', () => {
 });
 
 ipcMain.on('app-start', function(event, config) {
-  relay = new TCPRelay(config, true, 'info');
+  relay = new TCPRelay(config, true);
   relay.bootstrap().then(function() {
     logger.info('tcprelay is running', config);
     running = true;
