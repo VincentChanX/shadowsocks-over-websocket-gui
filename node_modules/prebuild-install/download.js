@@ -9,6 +9,7 @@ var util = require('./util')
 var error = require('./error')
 var url = require('url')
 var tunnel = require('tunnel-agent')
+var mkdirp = require('mkdirp')
 
 function downloadPrebuild (opts, cb) {
   var downloadUrl = util.getDownloadUrl(opts)
@@ -65,7 +66,7 @@ function downloadPrebuild (opts, cb) {
           if (err) return onerror(err)
           log.http(res.statusCode, downloadUrl)
           if (res.statusCode !== 200) return onerror()
-          fs.mkdir(util.prebuildCache(), function () {
+          mkdirp(util.prebuildCache(), function () {
             log.info('downloading to @', tempFile)
             pump(res, fs.createWriteStream(tempFile), function (err) {
               if (err) return onerror(err)
@@ -152,7 +153,7 @@ function downloadPrebuild (opts, cb) {
 
     function makeNpmCacheDir () {
       log.info('npm cache directory missing, creating it...')
-      fs.mkdir(cacheFolder, cb)
+      mkdirp(cacheFolder, cb)
     }
   }
 }
